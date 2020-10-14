@@ -10,3 +10,8 @@ void RenderableObject::shutDown()
     glDeleteTextures(1, &Texture);
     glDeleteVertexArrays(1, &VertexArrayID);
 }
+
+void RenderableObject::render()
+{
+
+}

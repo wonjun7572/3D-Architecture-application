@@ -64,7 +64,7 @@ void Renderer::init()
     glEnable(GL_CULL_FACE);
 }
 
-void Renderer::render(RenderableObject* src_obj,glm::mat4 ModelMatrix)
+void Renderer::render(RenderableObject* src_obj)
 {
 	// Clear the screen
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -80,6 +80,10 @@ void Renderer::render(RenderableObject* src_obj,glm::mat4 ModelMatrix)
 		glm::vec3(0, 0, 0), // and looks at the origin
 		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
 	);
+
+	glm::mat4 ModelMatrix = glm::mat4(1.0);
+	ModelMatrix = glm::translate(ModelMatrix, glm::vec3(3.0f, 0.0f, 0.0f));
+
 
 	glm::mat4 MVP = ProjectionMatrix * ViewMatrix * ModelMatrix;
 
@@ -149,4 +153,14 @@ void Renderer::render(RenderableObject* src_obj,glm::mat4 ModelMatrix)
 void Renderer::shutDown()
 {
 	glfwTerminate();
+}
+
+void Renderer::update(Object* src_obj)
+{
+
+}
+
+void Renderer::addObject(RenderableObject* src_obj)
+{
+
 }

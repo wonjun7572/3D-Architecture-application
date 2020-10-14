@@ -9,3 +9,8 @@ void NonRenderableObject::shutDown()
 {
 
 }
+
+void NonRenderableObject::update()
+{
+
+}

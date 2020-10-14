@@ -7,7 +7,7 @@
 struct GLFWwindow;
 class Object;
 
-class Renderer: public ICleanUp
+class Renderer: public ICleanUp 
 {
 private:
 	GLFWwindow* window;
@@ -22,11 +22,12 @@ public:
 
 public:
 
-	void render(RenderableObject* src_obj, glm::mat4 ModelMatrix);
-
-	void Sphere_render(RenderableObject* Sphere, glm::mat4 ModelMatrix);
-
+	void render(RenderableObject* src_obj);
 	void init();
+	void addObject(RenderableObject* src_obj);
+	void update(Object* src_obj);
+
+
 	virtual void shutDown() override;
 };
 

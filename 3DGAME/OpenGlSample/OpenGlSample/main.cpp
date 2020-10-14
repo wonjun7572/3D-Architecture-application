@@ -8,6 +8,7 @@
 #include "FileManager.h"
 #include "Renderer.h"
 #include "RenderableObject.h"
+#include "NonRenderableObject.h"
 #include "Sphere.h"
 
 GLFWwindow* window;
@@ -20,7 +21,8 @@ int main()
 	renderer->init();
 
 	RenderableObject* cube = new RenderableObject();
-	
+	NonRenderableObject* non_render_obj = new NonRenderableObject();
+
 	filemgr->loadOBJ(
 		cube,
 		"cube.obj",
@@ -31,15 +33,12 @@ int main()
 
 	Sphere* sphere = new Sphere();
 
-	glm::mat4 ModelMatrix_Sphere = glm::mat4(1.0);
-	ModelMatrix_Sphere = glm::translate(ModelMatrix_Sphere, glm::vec3(3.0f, 0.0f, 0.0f));
-
-	glm::mat4 ModelMatrix_Cube = glm::mat4(1.0);
-
 	while (true)
 	{
-		renderer->render(sphere, ModelMatrix_Sphere);
-		renderer->render(cube, ModelMatrix_Cube);
+		renderer->update(sphere);
+
+		renderer->render(sphere);
+		renderer->render(cube);
 	}
 
 	cube->shutDown();
@@ -47,6 +46,7 @@ int main()
 	renderer->shutDown();
 	
 	delete cube;
+	delete sphere;
 
 	return 0;
 }

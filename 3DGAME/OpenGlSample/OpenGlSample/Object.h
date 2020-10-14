@@ -4,6 +4,8 @@
 #include <vector>
 
 #include "ICleanUp.h"
+#include "IRender.h"
+#include "IUpdate.h"
 
 #include "include/GL/glew.h"
 #include "include/GLFW/glfw3.h" 

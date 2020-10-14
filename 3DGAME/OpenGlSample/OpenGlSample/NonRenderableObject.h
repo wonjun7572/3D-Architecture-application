@@ -14,10 +14,11 @@
 
 class Object;
 
-class NonRenderableObject : public Object
+class NonRenderableObject : public Object , public IUpdate
 {
 public:
     virtual void shutDown() override;
+    virtual void update() override;
 };
 
 #endif

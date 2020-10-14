@@ -13,7 +13,7 @@
 
 class Object;
 
-class RenderableObject : public Object
+class RenderableObject : public Object, public IRender
 {
 public:
     GLuint VertexArrayID;
@@ -35,6 +35,7 @@ public:
 
 public:
     virtual void shutDown() override;
+    virtual void render() override;
 };
 
 #endif
