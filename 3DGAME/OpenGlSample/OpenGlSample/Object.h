@@ -1,23 +1,17 @@
-#ifndef OBJECT_H
-#define OBJECT_H
+#ifndef __OBJECT_H__
+#define __OBJECT_H__
 
 #include <vector>
 
 #include "ICleanUp.h"
-#include "IRender.h"
-#include "IUpdate.h"
 
 #include "include/GL/glew.h"
-#include "include/GLFW/glfw3.h" 
 #include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
 
 class Object : public ICleanUp
 {
 public:
-    virtual ~Object() {}
-
-public:
-    virtual void shutDown() override;
+	virtual ~Object() {}
 };
+
 #endif

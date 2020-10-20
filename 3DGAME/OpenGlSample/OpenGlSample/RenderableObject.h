@@ -1,41 +1,22 @@
-#pragma once
-#ifndef RENDERABLEOBJECT_H
-#define RENDERABLEOBJECT_H
-
-#include <vector>
+#ifndef __RENDERABLEOBJECT_H__
+#define __RENDERABLEOBJECT_H__
 
 #include "Object.h"
+#include "IPosition.h"
+#include "IRender.h"
 
-#include "include/GL/glew.h"
-#include "include/GLFW/glfw3.h" 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-
-class Object;
-
-class RenderableObject : public Object, public IRender
+class RenderableObject : public Object, public IRender ,public IPosition
 {
 public:
-    GLuint VertexArrayID;
-    GLuint programID;
-    GLuint MatrixID;
-    GLuint ViewMatrixID;
-    GLuint ModelMatrixID;
-    GLuint Texture;
-    GLuint TextureID;
+	glm::vec3 Position;
 
-    std::vector<glm::vec3> vertices;
-    std::vector<glm::vec2> uvs;
-    std::vector<glm::vec3> normals;
-
-    GLuint vertexbuffer;
-    GLuint uvbuffer;
-    GLuint normalbuffer;
-    GLuint LightID;
+	float Position_X;
+	float Position_Y;
+	float Position_Z;
 
 public:
-    virtual void shutDown() override;
-    virtual void render() override;
+	virtual void shutDown() override;
+	virtual void setPosition(float x, float y, float z) override;
 };
 
-#endif
+#endif // !__RENDERABLEOBJECT_H__

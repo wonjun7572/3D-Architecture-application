@@ -1,4 +1,3 @@
-#pragma once
 #ifndef __IUPDATE_H__
 #define __IUPDATE_H__
 
@@ -8,4 +7,4 @@ public:
 	virtual void update() = 0;
 };
 
-#endif 
+#endif // !__IUPDATER_H__

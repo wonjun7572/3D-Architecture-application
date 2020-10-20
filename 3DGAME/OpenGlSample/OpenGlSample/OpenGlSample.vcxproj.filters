@@ -792,6 +792,9 @@
     <ClInclude Include="IRender.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="IPosition.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glm\detail\func_common.inl">

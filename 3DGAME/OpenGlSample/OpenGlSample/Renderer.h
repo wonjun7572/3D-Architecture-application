@@ -2,16 +2,23 @@
 #define __RENDERER_H__
 
 #include "ICleanUp.h"
-#include "RenderableObject.h"
+#include "IUpdate.h"
+#include "IRender.h"
+
+#include "include/GL/glew.h"		
+#include "include/GLFW/glfw3.h" 
 
 struct GLFWwindow;
-class Object;
 
-class Renderer: public ICleanUp 
+class RenderableObject;
+class Sphere;
+
+class Renderer : public ICleanUp
 {
 private:
 	GLFWwindow* window;
-	
+	std::vector<RenderableObject*> objList;
+
 public:
 	static Renderer* instance()
 	{
@@ -22,13 +29,20 @@ public:
 
 public:
 
-	void render(RenderableObject* src_obj);
+	void render();
+	void renderObject(RenderableObject* src_obj);
 	void init();
-	void addObject(RenderableObject* src_obj);
-	void update(Object* src_obj);
-
-
 	virtual void shutDown() override;
+	GLFWwindow* GetWindow() const { return window; }
+	void update(IUpdate* src_obj);
+	void addObject(RenderableObject* render_obj);
+
+	void Clear();
+	void Out();
+
+public:
+	glm::mat4 getPosition(glm::mat4, RenderableObject* src_obj);
+
 };
 
 #endif // !__RENDERER_H__

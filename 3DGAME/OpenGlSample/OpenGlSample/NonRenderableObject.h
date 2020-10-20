@@ -1,24 +1,14 @@
-#pragma once
-#ifndef NONRENDERABLEOBJECT_H
-#define NONRENDERABLEOBJECT_H
+#ifndef __NONRENDERABLEOBJECT_H__
+#define __NONRENDERABLEOBJECT_H__
 
-#include <vector>
-
-#include "ICleanUp.h"
 #include "Object.h"
+#include "IUpdate.h"
 
-#include "include/GL/glew.h"
-#include "include/GLFW/glfw3.h" 
-#include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
-
-class Object;
-
-class NonRenderableObject : public Object , public IUpdate
+class NonRenderableObject : public Object, public IUpdate
 {
 public:
-    virtual void shutDown() override;
-    virtual void update() override;
+	virtual void shutDown() override;
+	virtual void update() override;
 };
 
-#endif
+#endif // !__NONRENDERABLEOBJECT_H__

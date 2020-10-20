@@ -4,17 +4,7 @@
 #include <string>
 #include <vector>
 
-#include <stdio.h>
-#include <iostream>
-#include <fstream>
-#include <algorithm>
-#include <sstream>
-#include <stdlib.h>
-
-#include "include/GL/glew.h"
-#include "include/GLFW/glfw3.h" 
 #include "glm/glm.hpp"
-#include "glm/gtc/matrix_transform.hpp"
 
 class RenderableObject;
 
@@ -29,15 +19,13 @@ public:
 	}
 
 public:
-	void loadOBJ(
+	void loadObJ(
 		RenderableObject* target_obj,
 		std::string obj_path,
 		std::string texture_path,
 		std::string vs_shader_path,
 		std::string fs_shader_path
 	);
-
-private:
 	bool loadOBJ(
 		const char* path,
 		std::vector<glm::vec3>& out_vertices,
@@ -45,10 +33,7 @@ private:
 		std::vector<glm::vec3>& out_normals
 	);
 	GLuint loadDDS(const char* imagepath);
-	GLuint LoadShaders(
-		const char* vertex_file_path, 
-		const char* fragment_file_path
-	);
+	GLuint LoadShaders(const char* vertex_file_path, const char* fragment_file_path);
 };
 
 #endif // !__FILEMANAGER_H__
