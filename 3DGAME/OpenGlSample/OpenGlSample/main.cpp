@@ -63,6 +63,8 @@ int main()
 
 		renderer->render();
 
+		//renderer->computeMatricesFromInputs();
+
 		renderer->update(non_render_obj);
 
 		renderer->Out();

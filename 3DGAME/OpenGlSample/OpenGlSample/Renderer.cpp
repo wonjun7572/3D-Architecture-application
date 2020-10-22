@@ -74,14 +74,72 @@ void Renderer::renderObject(RenderableObject* src_obj)
 	// Use our shader
 	glUseProgram(src_obj->programID);
 
-	// Compute the MVP matrix from keyboard and mouse input
-	glm::mat4 ProjectionMatrix = glm::perspective(glm::radians(45.0f), 4.0f / 3.0f, 0.1f, 100.0f);
-	// Camera matrix
-	glm::mat4 ViewMatrix = glm::lookAt(
-		glm::vec3(0, 5, 7), // Camera is at (4,3,3), in World Space
-		glm::vec3(0, 0, 0), // and looks at the origin
-		glm::vec3(0, 1, 0)  // Head is up (set to 0,-1,0 to look upside-down)
+	// glfwGetTime is called only once, the first time this function is called
+	static double lastTime = glfwGetTime();
+
+	// Compute time difference between current and last frame
+	double currentTime = glfwGetTime();
+	float deltaTime = float(currentTime - lastTime);
+
+	// Get mouse position
+	double xpos, ypos;
+	glfwGetCursorPos(GetWindow(), &xpos, &ypos);
+
+	// Reset mouse position for next frame
+	glfwSetCursorPos(GetWindow(), 1024 / 2, 768 / 2);
+
+	// Compute new orientation
+	horizontalAngle += mouseSpeed * float(1024 / 2 - xpos);
+	verticalAngle += mouseSpeed * float(768 / 2 - ypos);
+
+	glm::vec3 direction(
+		cos(verticalAngle) * sin(horizontalAngle),
+		sin(verticalAngle),
+		cos(verticalAngle) * cos(horizontalAngle)
 	);
+
+	// Right vector
+	glm::vec3 right = glm::vec3(
+		sin(horizontalAngle - 3.14f / 2.0f),
+		0,
+		cos(horizontalAngle - 3.14f / 2.0f)
+	);
+
+	// Up vector
+	glm::vec3 up = glm::cross(right, direction);
+
+	// Move forward
+	if (glfwGetKey(GetWindow(), GLFW_KEY_UP) == GLFW_PRESS) {
+		position += direction * deltaTime * speed_units;
+	}
+	// Move backward
+	if (glfwGetKey(GetWindow(), GLFW_KEY_DOWN) == GLFW_PRESS) {
+		position -= direction * deltaTime * speed_units;
+	}
+	// Strafe right
+	if (glfwGetKey(GetWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS) {
+		position += right * deltaTime * speed_units;
+	}
+	// Strafe left
+	if (glfwGetKey(GetWindow(), GLFW_KEY_LEFT) == GLFW_PRESS) {
+		position -= right * deltaTime * speed_units;
+	}
+
+	float FoV = initialFoV;// - 5 * glfwGetMouseWheel(); // Now GLFW 3 requires setting up a callback for this. It's a bit too complicated for this beginner's tutorial, so it's disabled instead.
+
+	// Compute the MVP matrix from keyboard and mouse input
+	glm::mat4 ProjectionMatrix = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
+	// Camera matrix
+		// Camera matrix
+	glm::mat4 ViewMatrix = glm::lookAt(
+		position,           // Camera is here
+		position + direction, // and looks here : at the same position, plus "direction"
+		up                  // Head is up (set to 0,-1,0 to look upside-down)
+	);
+
+	// For the next frame, the "last time" will be "now"
+	lastTime = currentTime;
+
 	glm::mat4 ModelMatrix = glm::mat4(1.0);
 	ModelMatrix = getPosition(ModelMatrix, src_obj);
 
