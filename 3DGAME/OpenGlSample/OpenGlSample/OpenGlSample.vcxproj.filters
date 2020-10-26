@@ -795,6 +795,9 @@
     <ClInclude Include="IPosition.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="KeyInput.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glm\detail\func_common.inl">
@@ -1222,6 +1225,9 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="NonRenderableObject.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyInput.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

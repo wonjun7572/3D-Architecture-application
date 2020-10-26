@@ -22,3 +22,14 @@ void RenderableObject::setPosition(float x, float y, float z)
 	Position_Y = y;
 	Position_Z = z;
 }
+
+
+void RenderableObject::setMoving(bool IsCheck)
+{
+	_IsMoveCheck = IsCheck;
+}
+
+bool RenderableObject::getMoving()
+{
+	return _IsMoveCheck;
+}

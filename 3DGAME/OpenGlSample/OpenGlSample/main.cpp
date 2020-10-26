@@ -55,17 +55,23 @@ int main()
 	cube->setPosition(2.0f, 2.0f, 0.0f);
 	cube1->setPosition(-2.0f, -2.0f, 0.0f);
 
+	sphere->setMoving(true);
+	sphere1->setMoving(true);
+	cube->setMoving(true);
+	cube1->setMoving(true);
+
 	NonRenderableObject* non_render_obj = new NonRenderableObject();
+
+
+	renderer->setCameraPos(0, 0, 8);
 
 	while (true)
 	{
 		renderer->Clear();
 
-		renderer->render();
-
-		//renderer->computeMatricesFromInputs();
-
 		renderer->update(non_render_obj);
+
+		renderer->render();
 
 		renderer->Out();
 	}

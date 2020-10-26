@@ -45,3 +45,13 @@ void Sphere::shutDown()
 	glDeleteTextures(1, &Texture);
 	glDeleteVertexArrays(1, &VertexArrayID);
 }
+
+void Sphere::setMoving(bool IsCheck)
+{
+	_IsMoveCheck = IsCheck;
+}
+
+bool Sphere::getMoving()
+{
+	return _IsMoveCheck;
+}
