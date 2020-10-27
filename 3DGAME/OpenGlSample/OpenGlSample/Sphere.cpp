@@ -1,5 +1,5 @@
 #include "Sphere.h"
-
+//midterm test
 Sphere::Sphere(FileManager* filepath)
 {
 	TextureID = glGetUniformLocation(programID, "myTextureSampler");
@@ -8,7 +8,7 @@ Sphere::Sphere(FileManager* filepath)
 
 	programID = filepath->LoadShaders("20161676_vs.shader", "20161676_fs.shader");
 
-	Texture = filepath->loadDDS("uvtemplate.DDS");
+	Texture = filepath->loadBMP("8k_sun.BMP");
 
 	MatrixID = glGetUniformLocation(programID, "MVP");
 	ViewMatrixID = glGetUniformLocation(programID, "V");

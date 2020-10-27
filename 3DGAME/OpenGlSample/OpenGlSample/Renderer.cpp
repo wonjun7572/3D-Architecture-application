@@ -8,7 +8,7 @@
 #include "include/GLFW/glfw3.h" 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-
+//midterm test
 void Renderer::init()
 {
 	if (!glfwInit())
@@ -25,7 +25,7 @@ void Renderer::init()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 	// Open a window and create its OpenGL context
-	window = glfwCreateWindow(1024, 768, "Tutorial 08 - Basic Shading", NULL, NULL);
+	window = glfwCreateWindow(1024, 768, "20161676 MidTerm_Test", NULL, NULL);
 	if (window == NULL) {
 		fprintf(stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n");
 		getchar();
@@ -49,7 +49,7 @@ void Renderer::init()
 	glfwSetCursorPos(window, 1024 / 2, 768 / 2);
 
 	// Dark blue background
-	glClearColor(0.0f, 0.0f, 0.4f, 0.0f);
+	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
 	// Enable depth test
 	glEnable(GL_DEPTH_TEST);
@@ -74,9 +74,10 @@ void Renderer::renderObject(RenderableObject* src_obj)
 	// Use our shader
 	glUseProgram(src_obj->programID);
 
-	KeyInput* keyinput = KeyInput::instance();
+	
+	KeyInput::instance()->computeMatricesFromInputs();
 
-	keyinput->computeMatricesFromInputs();
+	KeyInput::instance()->computeMatricesFromInputs_WASD();
 
 	double xpos, ypos;
 	glfwGetCursorPos(window, &xpos, &ypos);
@@ -84,12 +85,15 @@ void Renderer::renderObject(RenderableObject* src_obj)
 	// Reset mouse position for next frame
 	glfwSetCursorPos(window, 1024 / 2, 768 / 2);
 
-	keyinput->horizontalAngle += keyinput->mouseSpeed * float(1024 / 2 - xpos);
-	keyinput->verticalAngle += keyinput->mouseSpeed * float(768 / 2 - ypos);
+	KeyInput::instance()->horizontalAngle += KeyInput::instance()->mouseSpeed * float(1024 / 2 - xpos);
+	KeyInput::instance()->verticalAngle += KeyInput::instance()->mouseSpeed * float(768 / 2 - ypos);
 
 	// Compute the MVP matrix from keyboard and mouse input
-	glm::mat4 ProjectionMatrix = keyinput->getProjectionMatrix();
-	glm::mat4 ViewMatrix = keyinput->getViewMatrix();
+	glm::mat4 ProjectionMatrix = KeyInput::instance()->getProjectionMatrix();
+	glm::mat4 ViewMatrix = KeyInput::instance()->getViewMatrix();
+
+	glm::mat4 ProjectionMatrix_WASD = KeyInput::instance()->getProjectionMatrix_WASD();
+	glm::mat4 ViewMatrix_WASD = KeyInput::instance()->getViewMatrix_WASD();
 
 	glm::mat4 ModelMatrix = glm::mat4(1.0);
 	ModelMatrix = getPosition(ModelMatrix, src_obj);
@@ -108,15 +112,15 @@ void Renderer::renderObject(RenderableObject* src_obj)
 	glm::mat4 Projection = glm::perspective(glm::radians(FoV), 4.0f / 3.0f, 0.1f, 100.0f);
 
 	glm::vec3 direction(
-		cos(keyinput->verticalAngle) * sin(keyinput->horizontalAngle),
-		sin(keyinput->verticalAngle),
-		cos(keyinput->verticalAngle) * cos(keyinput->horizontalAngle)
+		cos(KeyInput::instance()->verticalAngle) * sin(KeyInput::instance()->horizontalAngle),
+		sin(KeyInput::instance()->verticalAngle),
+		cos(KeyInput::instance()->verticalAngle) * cos(KeyInput::instance()->horizontalAngle)
 	);
 
 	glm::vec3 right = glm::vec3(
-		sin(keyinput->horizontalAngle - 3.14f / 2.0f),
+		sin(KeyInput::instance()->horizontalAngle - 3.14f / 2.0f),
 		0,
-		cos(keyinput->horizontalAngle - 3.14f / 2.0f)
+		cos(KeyInput::instance()->horizontalAngle - 3.14f / 2.0f)
 	);
 
 	glm::vec3 position = glm::vec3(0, 0, 5);
@@ -132,10 +136,14 @@ void Renderer::renderObject(RenderableObject* src_obj)
 	glm::mat4 To_World = glm::mat4(1.0f);
 
 	glm::mat4 MVP;
-
+	
 	if (src_obj->getMoving() == true)
 	{
 		MVP = ProjectionMatrix * moveCameraPos * ViewMatrix * moveObjPos * ModelMatrix;
+	}
+	else if (src_obj->getMoving_WASD() == true)
+	{
+		MVP = ProjectionMatrix_WASD * moveCameraPos * ViewMatrix_WASD * moveObjPos * ModelMatrix;
 	}
 	else
 	{

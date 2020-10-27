@@ -4,7 +4,7 @@
 #include "include/GLFW/glfw3.h" 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-
+//midterm test
 void RenderableObject::shutDown()
 {
 	// Cleanup VBO and shader
@@ -29,7 +29,17 @@ void RenderableObject::setMoving(bool IsCheck)
 	_IsMoveCheck = IsCheck;
 }
 
+void RenderableObject::setMoving_WASD(bool IsCheck)
+{
+	_IsMoveCheck_WASD = IsCheck;
+}
+
 bool RenderableObject::getMoving()
 {
 	return _IsMoveCheck;
+}
+
+bool RenderableObject::getMoving_WASD()
+{
+	return _IsMoveCheck_WASD;
 }

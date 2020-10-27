@@ -10,7 +10,7 @@
 #include "include/GLFW/glfw3.h" 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-
+//midterm test
 struct GLFWwindow;
 
 class RenderableObject;

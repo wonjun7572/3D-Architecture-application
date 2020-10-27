@@ -1,5 +1,5 @@
 #define _CRT_SECURE_NO_WARINGS
-
+//midterm test
 #pragma comment(lib, "OpenGL32.lib")
 #pragma comment(lib, "lib-vc2017/glew32.lib")
 #pragma comment(lib, "lib-vc2017/glfw3.lib")
@@ -18,52 +18,55 @@ int main()
 	Renderer* renderer = Renderer::instance();
 	renderer->init();
 
-	RenderableObject* cube = new RenderableObject();
-	renderer->addObject(cube);
+	RenderableObject* ground = new RenderableObject();
+	renderer->addObject(ground);
 
 	filemgr->loadObJ(
-		cube,
-		"cube.obj",
-		"uvtemplate.DDS",
+		ground,
+		"ground.obj",
+		"skin.BMP",
 		"20161676_vs.shader",
 		"20161676_fs.shader"
 	);
 
-	//cube는 RenderableObject 에서 관리하기때문에 filemgr를 통해 가져와줘야함.
+	Sphere* sun = new Sphere(filemgr);
+	renderer->addObject(sun);
 
-	Sphere* sphere = new Sphere(filemgr);
-	renderer->addObject(sphere);
-
-	//sphere는 sphere 자체에서 모든것을 관리함.
-
-	RenderableObject* cube1 = new RenderableObject();
-	renderer->addObject(cube1);
+	RenderableObject* earth = new RenderableObject();
+	renderer->addObject(earth);
 
 	filemgr->loadObJ(
-		cube1,
-		"cube.obj",
-		"uvtemplate.DDS",
+		earth,
+		"orb.obj",
+		"8k_earth.BMP",
 		"20161676_vs.shader",
 		"20161676_fs.shader"
 	);
 
-	Sphere* sphere1 = new Sphere(filemgr);
-	renderer->addObject(sphere1);
+	RenderableObject* moon = new RenderableObject();
+	renderer->addObject(moon);
 
-	sphere->setPosition(-2.0f, 2.0f, 0.0f);
-	sphere1->setPosition(2.0f, -2.0f, 0.0f);
-	cube->setPosition(2.0f, 2.0f, 0.0f);
-	cube1->setPosition(-2.0f, -2.0f, 0.0f);
+	filemgr->loadObJ(
+		moon,
+		"orb.obj",
+		"8k_moon.BMP",
+		"20161676_vs.shader",
+		"20161676_fs.shader"
+	);
 
-	sphere->setMoving(true);
-	sphere1->setMoving(true);
-	cube->setMoving(true);
-	cube1->setMoving(true);
+	sun->setPosition(-2.0f, 5.0f, 0.0f);
+	earth->setPosition(2.0f, 5.0f, 0.0f);
+	moon->setPosition(0.0f, 3.0f, 0.0f);
+	ground->setPosition(0.0f, -10.0f, 0.0f);
+	
+	sun->setMoving(true);
+	earth->setMoving(true);
+	moon->setMoving(true);
+	ground->setMoving(false);
 
 	NonRenderableObject* non_render_obj = new NonRenderableObject();
 
-
-	renderer->setCameraPos(0, 0, 8);
+	renderer->setCameraPos(0, 5, 13);
 
 	while (true)
 	{
@@ -75,12 +78,16 @@ int main()
 
 		renderer->Out();
 	}
-	cube->shutDown();
-	sphere->shutDown();
-	renderer->shutDown();
 
-	delete cube;
-	delete sphere;
+	sun->shutDown();
+	renderer->shutDown();
+	moon->shutDown();
+	earth->shutDown();
+	moon->shutDown();
+
+	delete moon;
+	delete earth;
+	delete sun;
 	delete non_render_obj;
 
 	return 0;
