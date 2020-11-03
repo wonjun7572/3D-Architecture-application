@@ -18,9 +18,7 @@ void RenderableObject::shutDown()
 
 void RenderableObject::setPosition(float x, float y, float z)
 {
-	Position_X = x;
-	Position_Y = y;
-	Position_Z = z;
+	Position = glm::vec3(x, y, z);
 }
 
 

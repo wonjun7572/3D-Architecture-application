@@ -798,6 +798,12 @@
     <ClInclude Include="KeyInput.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
+    <ClInclude Include="Time.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Obj.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glm\detail\func_common.inl">
@@ -1212,9 +1218,6 @@
     <ClCompile Include="FileManager.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Renderer.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -1228,6 +1231,12 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="KeyInput.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Time.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Obj.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

@@ -228,9 +228,9 @@ void Renderer::addObject(RenderableObject* render_obj)
 glm::mat4 Renderer::getPosition(glm::mat4 Model, RenderableObject* src_obj)
 {
 	float x, y, z;
-	x = src_obj->Position_X;
-	y = src_obj->Position_Y;
-	z = src_obj->Position_Z;
+	x = src_obj->Position.x;
+	y = src_obj->Position.y;
+	z = src_obj->Position.z;
 
 	Model = glm::translate(Model, glm::vec3(x, y, z));
 	return Model;

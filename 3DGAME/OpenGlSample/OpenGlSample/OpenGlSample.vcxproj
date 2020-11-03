@@ -372,10 +372,12 @@
     <ClInclude Include="IUpdate.h" />
     <ClInclude Include="KeyInput.h" />
     <ClInclude Include="NonRenderableObject.h" />
+    <ClInclude Include="Obj.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="RenderableObject.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="Sphere.h" />
+    <ClInclude Include="Time.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="20161676_fs.shader" />
@@ -520,10 +522,11 @@
     <ClCompile Include="KeyInput.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NonRenderableObject.cpp" />
-    <ClCompile Include="Object.cpp" />
+    <ClCompile Include="Obj.cpp" />
     <ClCompile Include="RenderableObject.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="Sphere.cpp" />
+    <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

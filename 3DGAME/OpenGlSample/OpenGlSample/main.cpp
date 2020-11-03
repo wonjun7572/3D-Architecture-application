@@ -10,10 +10,14 @@
 #include "RenderableObject.h"
 #include "NonRenderableObject.h"
 #include "Sphere.h"
+#include "Time.h"
+#include "Obj.h"
 
 int main()
 {
 	FileManager* filemgr = FileManager::instance();
+
+	Time* time = Time::instance();
 
 	Renderer* renderer = Renderer::instance();
 	renderer->init();
@@ -32,7 +36,7 @@ int main()
 	Sphere* sun = new Sphere(filemgr);
 	renderer->addObject(sun);
 
-	RenderableObject* earth = new RenderableObject();
+	Obj* earth = new Obj();
 	renderer->addObject(earth);
 
 	filemgr->loadObJ(
@@ -43,7 +47,7 @@ int main()
 		"20161676_fs.shader"
 	);
 
-	RenderableObject* moon = new RenderableObject();
+	Obj* moon = new Obj();
 	renderer->addObject(moon);
 
 	filemgr->loadObJ(
@@ -68,11 +72,17 @@ int main()
 
 	renderer->setCameraPos(0, 5, 13);
 
+
 	while (true)
 	{
 		renderer->Clear();
 
-		renderer->update(non_render_obj);
+		if (time->IsFixedRendering())
+		{
+			renderer->update(earth);
+			renderer->update(moon);
+			renderer->update(non_render_obj);
+		}
 
 		renderer->render();
 

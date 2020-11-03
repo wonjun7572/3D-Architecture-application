@@ -14,10 +14,6 @@ private:
 public:
 	glm::vec3 Position;
 
-	float Position_X;
-	float Position_Y;
-	float Position_Z;
-
 public:
 	virtual void shutDown() override;
 	virtual void setPosition(float x, float y, float z) override;

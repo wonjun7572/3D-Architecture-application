@@ -8,7 +8,7 @@
 #include "include/GL/glew.h"
 #include "glm/glm.hpp"
 
-class Object : public ICleanUp
+class Object :public ICleanUp 
 {
 public:
 	virtual ~Object() {}

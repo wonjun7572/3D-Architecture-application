@@ -22,6 +22,7 @@ private:
 	glm::vec3 cameraPos;
 
 	std::vector<RenderableObject*> objList;
+	void renderObject(RenderableObject* src_obj);
 
 public:
 
@@ -36,7 +37,6 @@ public:
 	GLFWwindow* window;
 
 	void render();
-	void renderObject(RenderableObject* src_obj);
 	void init();
 	virtual void shutDown() override;
 	GLFWwindow* GetWindow() { return window; }
