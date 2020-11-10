@@ -11,67 +11,21 @@
 #include "NonRenderableObject.h"
 #include "Sphere.h"
 #include "Time.h"
-#include "Obj.h"
+#include "Sun.h"
 
 int main()
 {
 	FileManager* filemgr = FileManager::instance();
 
 	Time* time = Time::instance();
-
 	Renderer* renderer = Renderer::instance();
-	renderer->init();
 
-	RenderableObject* ground = new RenderableObject();
-	renderer->addObject(ground);
-
-	filemgr->loadObJ(
-		ground,
-		"ground.obj",
-		"skin.BMP",
-		"20161676_vs.shader",
-		"20161676_fs.shader"
-	);
-
-	Sphere* sun = new Sphere(filemgr);
-	renderer->addObject(sun);
-
-	Obj* earth = new Obj();
-	renderer->addObject(earth);
-
-	filemgr->loadObJ(
-		earth,
-		"orb.obj",
-		"8k_earth.BMP",
-		"20161676_vs.shader",
-		"20161676_fs.shader"
-	);
-
-	Obj* moon = new Obj();
-	renderer->addObject(moon);
-
-	filemgr->loadObJ(
-		moon,
-		"orb.obj",
-		"8k_moon.BMP",
-		"20161676_vs.shader",
-		"20161676_fs.shader"
-	);
-
-	sun->setPosition(-2.0f, 5.0f, 0.0f);
-	earth->setPosition(2.0f, 5.0f, 0.0f);
-	moon->setPosition(0.0f, 3.0f, 0.0f);
-	ground->setPosition(0.0f, -10.0f, 0.0f);
-	
-	sun->setMoving(true);
-	earth->setMoving(true);
-	moon->setMoving(true);
-	ground->setMoving(false);
-
+	RenderableObject* render_obj = new RenderableObject();
 	NonRenderableObject* non_render_obj = new NonRenderableObject();
 
-	renderer->setCameraPos(0, 5, 13);
+	Sun* sun = new Sun();
 
+	renderer->init();
 
 	while (true)
 	{
@@ -79,9 +33,7 @@ int main()
 
 		if (time->IsFixedRendering())
 		{
-			renderer->update(earth);
-			renderer->update(moon);
-			renderer->update(non_render_obj);
+			renderer->update();
 		}
 
 		renderer->render();
@@ -89,14 +41,10 @@ int main()
 		renderer->Out();
 	}
 
-	sun->shutDown();
-	renderer->shutDown();
-	moon->shutDown();
-	earth->shutDown();
-	moon->shutDown();
 
-	delete moon;
-	delete earth;
+	renderer->shutDown();
+	sun->shutDown();
+
 	delete sun;
 	delete non_render_obj;
 

@@ -19,13 +19,9 @@ public:
 	}
 
 public:
-	void loadObJ(
-		RenderableObject* target_obj,
-		std::string obj_path,
-		std::string texture_path,
-		std::string vs_shader_path,
-		std::string fs_shader_path
-	);
+
+	void loadObj(RenderableObject* obj, const char* vertex_data, const char* texturename, const char* vs_shader, const char* fs_shader);
+
 	bool loadOBJ(
 		const char* path,
 		std::vector<glm::vec3>& out_vertices,

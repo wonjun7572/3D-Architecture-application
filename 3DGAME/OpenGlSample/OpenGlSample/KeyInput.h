@@ -5,7 +5,7 @@
 #include "include/GLFW/glfw3.h" 
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-//midterm test
+
 class KeyInput
 {
 public:
@@ -19,13 +19,8 @@ public:
 
 	void computeMatricesFromInputs();
 
-	void computeMatricesFromInputs_WASD();
-
 	glm::mat4 ViewMatrix;
 	glm::mat4 ProjectionMatrix;
-	glm::mat4 ViewMatrix_WASD;
-	glm::mat4 ProjectionMatrix_WASD;
-
 
 	glm::mat4 getViewMatrix() {
 		return ViewMatrix;
@@ -33,14 +28,6 @@ public:
 
 	glm::mat4 getProjectionMatrix() {
 		return ProjectionMatrix;
-	}
-
-	glm::mat4 getViewMatrix_WASD() {
-		return ViewMatrix_WASD;
-	}
-
-	glm::mat4 getProjectionMatrix_WASD() {
-		return ProjectionMatrix_WASD;
 	}
 
 	// Initial position : on +Z

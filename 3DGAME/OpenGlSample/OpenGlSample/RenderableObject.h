@@ -1,27 +1,39 @@
 #ifndef __RENDERABLEOBJECT_H__
 #define __RENDERABLEOBJECT_H__
-//midterm test
-#include "Object.h"
-#include "IPosition.h"
-#include "IRender.h"
 
-class RenderableObject : public Object, public IRender, public IPosition
+#include "Object.h"
+
+class RenderableObject : public Object
 {
 private:
 	bool _IsMoveCheck = false;
-	bool _IsMoveCheck_WASD = false;
 
 public:
+	RenderableObject();
+	virtual void init() override {};
+	virtual void render() override {};
+	virtual void update() override {};
+	virtual void shutDown() override {};
+	virtual void setPosition(float x, float y, float z) {};
+	virtual void setCameraPos(float x, float y, float z) {};
+
+public:
+
 	glm::vec3 Position;
+	glm::vec3 cameraPos;
+	GLuint vertexbuffer;
+	GLuint uvbuffer;
+	GLuint normalbuffer;
 
-public:
-	virtual void shutDown() override;
-	virtual void setPosition(float x, float y, float z) override;
+	std::vector<glm::vec3> vertices;
+	std::vector<glm::vec2> uvs;
+	std::vector<glm::vec3> normals;
 
-	virtual void setMoving(bool IsCheck);
-	virtual void setMoving_WASD(bool IsCheck);
-	virtual bool getMoving();
-	virtual bool getMoving_WASD();
+	GLuint Texture;
+	GLuint TextureID;
+	GLuint MatrixID;
+	GLuint programID;
+	GLuint VertexArrayID;
 };
 
 #endif // !__RENDERABLEOBJECT_H__

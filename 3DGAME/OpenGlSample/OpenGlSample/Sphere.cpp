@@ -1,18 +1,22 @@
 #include "Sphere.h"
-//midterm test
-Sphere::Sphere(FileManager* filepath)
+#include "FileManager.h"
+
+Sphere::Sphere()
 {
-	TextureID = glGetUniformLocation(programID, "myTextureSampler");
+	FileManager* filemgr = FileManager::instance();
 
-	filepath->loadOBJ("orb.obj", vertices, uvs, normals);
-
-	programID = filepath->LoadShaders("20161676_vs.shader", "20161676_fs.shader");
-
-	Texture = filepath->loadBMP("8k_sun.BMP");
+	programID = filemgr->LoadShaders("20161676_vs.shader", "20161676_fs.shader");
 
 	MatrixID = glGetUniformLocation(programID, "MVP");
-	ViewMatrixID = glGetUniformLocation(programID, "V");
-	ModelMatrixID = glGetUniformLocation(programID, "M");
+
+	Texture = filemgr->loadBMP("8k_earth.BMP");
+
+	TextureID = glGetUniformLocation(programID, "myTextureSampler");
+
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+
+	bool res = filemgr->loadOBJ("orb.obj", vertices, uvs, normals);
 
 	glGenBuffers(1, &vertexbuffer);
 	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);

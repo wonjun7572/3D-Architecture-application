@@ -1,7 +1,6 @@
-
 #ifndef __SPHERE_H__
 #define __SPHERE_H__
-//midterm test
+
 #include "RenderableObject.h"
 #include "FileManager.h"
 
@@ -11,7 +10,7 @@ private:
 	bool _IsMoveCheck = false;
 
 public:
-	Sphere(FileManager* filepath);
+	Sphere();
 	virtual void shutDown() override;
 	virtual	void setPosition(float x, float y, float z);
 

@@ -1,13 +1,12 @@
-#define _CRT_SECURE_NO_WARNINGS
-
-#include <vector>
 #include <iostream>
 #include <sstream>
 #include <fstream>
 
 #include "Object.h"
 #include "FileManager.h"
+
 #include "RenderableObject.h"
+#include "Sphere.h"
 #include "include/GL/glew.h"
 
 
@@ -16,64 +15,16 @@
 #define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
 
 
-void FileManager::loadObJ(
-	RenderableObject* target_obj,
-	std::string obj_path,
-	std::string texture_path,
-	std::string vs_shader_path,
-	std::string fs_shader_path)
-{
-	{
-		glGenVertexArrays(1, &target_obj->VertexArrayID);
-		glBindVertexArray(target_obj->VertexArrayID);
-
-		// Create and compile our GLSL program from the shaders
-		target_obj->programID = LoadShaders(vs_shader_path.c_str(), fs_shader_path.c_str());
-
-	}
+#pragma warning(disable:4996) 
 
 
-	//MVP
-	target_obj->MatrixID = glGetUniformLocation(target_obj->programID, "MVP");
-	target_obj->ViewMatrixID = glGetUniformLocation(target_obj->programID, "V");
-	target_obj->ModelMatrixID = glGetUniformLocation(target_obj->programID, "M");
-
-	{
-		target_obj->Texture = loadBMP(texture_path.c_str());
-
-		// Get a handle for our "myTextureSampler" uniform
-		target_obj->TextureID = glGetUniformLocation(target_obj->programID, "myTextureSampler");
-	}
-
-	{
-		loadOBJ(obj_path.c_str(), target_obj->vertices, target_obj->uvs, target_obj->normals);
-
-		glGenBuffers(1, &target_obj->vertexbuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, target_obj->vertexbuffer);
-		glBufferData(GL_ARRAY_BUFFER, target_obj->vertices.size() * sizeof(glm::vec3), &target_obj->vertices[0], GL_STATIC_DRAW);
-
-		glGenBuffers(1, &target_obj->uvbuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, target_obj->uvbuffer);
-		glBufferData(GL_ARRAY_BUFFER, target_obj->uvs.size() * sizeof(glm::vec2), &target_obj->uvs[0], GL_STATIC_DRAW);
-
-		glGenBuffers(1, &target_obj->normalbuffer);
-		glBindBuffer(GL_ARRAY_BUFFER, target_obj->normalbuffer);
-		glBufferData(GL_ARRAY_BUFFER, target_obj->normals.size() * sizeof(glm::vec3), &target_obj->normals[0], GL_STATIC_DRAW);
-	}
-
-	{
-		glUseProgram(target_obj->programID);
-		target_obj->LightID = glGetUniformLocation(target_obj->programID, "LightPosition_worldspace");
-	}
-
-}
 
 bool FileManager::loadOBJ(
 	const char* path,
 	std::vector<glm::vec3>& out_vertices,
 	std::vector<glm::vec2>& out_uvs,
-	std::vector<glm::vec3>& out_normals)
-{
+	std::vector<glm::vec3>& out_normals
+) {
 	printf("Loading OBJ file %s...\n", path);
 
 	std::vector<unsigned int> vertexIndices, uvIndices, normalIndices;
@@ -165,8 +116,8 @@ bool FileManager::loadOBJ(
 	return true;
 }
 
-GLuint FileManager::loadBMP(const char* imagepath)
-{
+GLuint FileManager::loadBMP(const char* imagepath) {
+
 	printf("Reading image %s\n", imagepath);
 
 	//BMP파일의 헤더에서 데이터를 읽는다
@@ -246,7 +197,6 @@ GLuint FileManager::loadBMP(const char* imagepath)
 
 GLuint FileManager::LoadShaders(const char* vertex_file_path, const char* fragment_file_path)
 {
-
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
 	GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
@@ -286,7 +236,6 @@ GLuint FileManager::LoadShaders(const char* vertex_file_path, const char* fragme
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer, NULL);
 	glCompileShader(VertexShaderID);
 
-	// Check Vertex Shader
 	glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
 	glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
@@ -297,13 +246,11 @@ GLuint FileManager::LoadShaders(const char* vertex_file_path, const char* fragme
 
 
 
-	// Compile Fragment Shader
 	printf("Compiling shader : %s\n", fragment_file_path);
 	char const* FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, NULL);
 	glCompileShader(FragmentShaderID);
 
-	// Check Fragment Shader
 	glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
 	glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
@@ -313,15 +260,12 @@ GLuint FileManager::LoadShaders(const char* vertex_file_path, const char* fragme
 	}
 
 
-
-	// Link the program
 	printf("Linking program\n");
 	GLuint ProgramID = glCreateProgram();
 	glAttachShader(ProgramID, VertexShaderID);
 	glAttachShader(ProgramID, FragmentShaderID);
 	glLinkProgram(ProgramID);
 
-	// Check the program
 	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
 	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
 	if (InfoLogLength > 0) {
@@ -338,4 +282,31 @@ GLuint FileManager::LoadShaders(const char* vertex_file_path, const char* fragme
 	glDeleteShader(FragmentShaderID);
 
 	return ProgramID;
+}
+
+
+void FileManager::loadObj(RenderableObject* _object, const char* objname, const char* texturename, const char* vs_shader, const char* fs_shader)
+{
+	_object->programID = LoadShaders(vs_shader, fs_shader);
+	_object->MatrixID = glGetUniformLocation(_object->programID, "MVP");
+	_object->Texture = loadBMP(texturename);
+	_object->TextureID = glGetUniformLocation(_object->programID, "myTextureSampler");
+
+	glGenVertexArrays(1, &_object->VertexArrayID);
+	glBindVertexArray(_object->VertexArrayID);
+
+
+	bool res = loadOBJ(objname, _object->vertices, _object->uvs, _object->normals);
+
+	glGenBuffers(1, &_object->vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, _object->vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, _object->vertices.size() * sizeof(glm::vec3), &_object->vertices[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &_object->uvbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, _object->uvbuffer);
+	glBufferData(GL_ARRAY_BUFFER, _object->uvs.size() * sizeof(glm::vec2), &_object->uvs[0], GL_STATIC_DRAW);
+
+	glGenBuffers(1, &_object->normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, _object->normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, _object->normals.size() * sizeof(glm::vec3), &_object->normals[0], GL_STATIC_DRAW);
 }
