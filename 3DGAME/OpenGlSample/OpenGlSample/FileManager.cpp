@@ -14,10 +14,7 @@
 #define FOURCC_DXT3 0x33545844 // Equivalent to "DXT3" in ASCII
 #define FOURCC_DXT5 0x35545844 // Equivalent to "DXT5" in ASCII
 
-
 #pragma warning(disable:4996) 
-
-
 
 bool FileManager::loadOBJ(
 	const char* path,
@@ -285,28 +282,31 @@ GLuint FileManager::LoadShaders(const char* vertex_file_path, const char* fragme
 }
 
 
-void FileManager::loadObj(RenderableObject* _object, const char* objname, const char* texturename, const char* vs_shader, const char* fs_shader)
+void FileManager::loadObj(RenderableObject* target_obj,
+	std::string obj_path,
+	std::string texture_path,
+	std::string vs_shader_path,
+	std::string fs_shader_path)
 {
-	_object->programID = LoadShaders(vs_shader, fs_shader);
-	_object->MatrixID = glGetUniformLocation(_object->programID, "MVP");
-	_object->Texture = loadBMP(texturename);
-	_object->TextureID = glGetUniformLocation(_object->programID, "myTextureSampler");
+	target_obj->programID = LoadShaders(vs_shader_path.c_str(), fs_shader_path.c_str());
+	target_obj->MatrixID = glGetUniformLocation(target_obj->programID, "MVP");
+	target_obj->Texture = loadBMP(texture_path.c_str());
+	target_obj->TextureID = glGetUniformLocation(target_obj->programID, "myTextureSampler");
 
-	glGenVertexArrays(1, &_object->VertexArrayID);
-	glBindVertexArray(_object->VertexArrayID);
+	glGenVertexArrays(1, &target_obj->VertexArrayID);
+	glBindVertexArray(target_obj->VertexArrayID);
 
+	bool res = loadOBJ(obj_path.c_str(), target_obj->vertices, target_obj->uvs, target_obj->normals);
 
-	bool res = loadOBJ(objname, _object->vertices, _object->uvs, _object->normals);
+	glGenBuffers(1, &target_obj->vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, target_obj->vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, target_obj->vertices.size() * sizeof(glm::vec3), &target_obj->vertices[0], GL_STATIC_DRAW);
 
-	glGenBuffers(1, &_object->vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _object->vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, _object->vertices.size() * sizeof(glm::vec3), &_object->vertices[0], GL_STATIC_DRAW);
+	glGenBuffers(1, &target_obj->uvbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, target_obj->uvbuffer);
+	glBufferData(GL_ARRAY_BUFFER, target_obj->uvs.size() * sizeof(glm::vec2), &target_obj->uvs[0], GL_STATIC_DRAW);
 
-	glGenBuffers(1, &_object->uvbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _object->uvbuffer);
-	glBufferData(GL_ARRAY_BUFFER, _object->uvs.size() * sizeof(glm::vec2), &_object->uvs[0], GL_STATIC_DRAW);
-
-	glGenBuffers(1, &_object->normalbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, _object->normalbuffer);
-	glBufferData(GL_ARRAY_BUFFER, _object->normals.size() * sizeof(glm::vec3), &_object->normals[0], GL_STATIC_DRAW);
+	glGenBuffers(1, &target_obj->normalbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, target_obj->normalbuffer);
+	glBufferData(GL_ARRAY_BUFFER, target_obj->normals.size() * sizeof(glm::vec3), &target_obj->normals[0], GL_STATIC_DRAW);
 }

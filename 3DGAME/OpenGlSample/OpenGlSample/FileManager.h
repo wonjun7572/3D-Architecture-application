@@ -4,7 +4,14 @@
 #include <string>
 #include <vector>
 
+#include "include/GL/glew.h"		
+#include "include/GLFW/glfw3.h" 
+#include "glm/gtc/matrix_transform.hpp"
 #include "glm/glm.hpp"
+
+#pragma comment(lib, "OpenGL32.lib")
+#pragma comment(lib, "lib-vc2017/glew32.lib")
+#pragma comment(lib, "lib-vc2017/glfw3.lib")
 
 class RenderableObject;
 
@@ -20,7 +27,13 @@ public:
 
 public:
 
-	void loadObj(RenderableObject* obj, const char* vertex_data, const char* texturename, const char* vs_shader, const char* fs_shader);
+	//void loadObj(RenderableObject* obj, const char* vertex_data, const char* texturename, const char* vs_shader, const char* fs_shader);
+	void loadObj(
+		RenderableObject* target_obj,
+		std::string obj_path,
+		std::string texture_path,
+		std::string vs_shader_path,
+		std::string fs_shader_path);
 
 	bool loadOBJ(
 		const char* path,

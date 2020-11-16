@@ -14,7 +14,7 @@ void Sun::init()
 	filemgr->loadObj(
 		this,
 		"sphere.obj",
-		"sun.bmp",
+		"skin.bmp",
 		"20161676_vs.shader",
 		"20161676_fs.shader"
 	);
@@ -61,7 +61,6 @@ void Sun::render()
 		(void*)0
 	);
 
-
 	// 2nd attribute buffer : UVs
 	glBindBuffer(GL_ARRAY_BUFFER, this->uvbuffer);
 	glVertexAttribPointer(
@@ -83,8 +82,6 @@ void Sun::render()
 		0,                                // stride
 		(void*)0                          // array buffer offset
 	);
-
-
 
 	glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
 	glDisableVertexAttribArray(0);

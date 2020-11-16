@@ -43,7 +43,7 @@ int main()
 
 
 	renderer->shutDown();
-	sun->shutDown();
+
 
 	delete sun;
 	delete non_render_obj;

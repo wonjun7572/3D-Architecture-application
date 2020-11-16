@@ -34,6 +34,7 @@ public:
 	GLuint MatrixID;
 	GLuint programID;
 	GLuint VertexArrayID;
+	GLuint LightID;
 };
 
 #endif // !__RENDERABLEOBJECT_H__

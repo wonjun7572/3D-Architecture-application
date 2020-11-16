@@ -9,7 +9,7 @@ Sphere::Sphere()
 
 	MatrixID = glGetUniformLocation(programID, "MVP");
 
-	Texture = filemgr->loadBMP("8k_earth.BMP");
+	Texture = filemgr->loadBMP("sun.BMP");
 
 	TextureID = glGetUniformLocation(programID, "myTextureSampler");
 
