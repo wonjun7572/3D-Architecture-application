@@ -14,7 +14,7 @@ void Sun::init()
 	filemgr->loadObj(
 		this,
 		"sphere.obj",
-		"skin.bmp",
+		"sun.bmp",
 		"20161676_vs.shader",
 		"20161676_fs.shader"
 	);
