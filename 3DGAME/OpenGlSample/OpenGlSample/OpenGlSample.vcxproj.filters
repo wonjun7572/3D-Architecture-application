@@ -816,6 +816,9 @@
     <ClInclude Include="Time.h">
       <Filter>소스 파일\Function</Filter>
     </ClInclude>
+    <ClInclude Include="CompositeObject.h">
+      <Filter>소스 파일\OBJ</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="glm\detail\func_common.inl">
@@ -1250,6 +1253,9 @@
     </ClCompile>
     <ClCompile Include="Time.cpp">
       <Filter>소스 파일\Function</Filter>
+    </ClCompile>
+    <ClCompile Include="CompositeObject.cpp">
+      <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

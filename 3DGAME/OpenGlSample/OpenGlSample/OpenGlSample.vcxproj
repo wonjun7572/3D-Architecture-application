@@ -115,6 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="CompositeObject.h" />
     <ClInclude Include="FileManager.h" />
     <ClInclude Include="glm\common.hpp" />
     <ClInclude Include="glm\detail\compute_common.hpp" />
@@ -519,6 +520,7 @@
     <None Include="20161676_vs.shader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CompositeObject.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="KeyInput.cpp" />
     <ClCompile Include="main.cpp" />
