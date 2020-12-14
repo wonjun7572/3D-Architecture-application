@@ -1,9 +1,9 @@
 #ifndef __NONRENDERABLEOBJECT_H__
 #define __NONRENDERABLEOBJECT_H__
 
-#include "Object.h"
+#include "CompositeObject.h"
 
-class NonRenderableObject : public Object
+class NonRenderableObject : public CompositeObject
 {
 public:
 	NonRenderableObject();

@@ -6,7 +6,6 @@
 #include "FileManager.h"
 
 #include "RenderableObject.h"
-#include "Sphere.h"
 #include "include/GL/glew.h"
 
 

@@ -774,9 +774,6 @@
     <ClInclude Include="include\GLFW\glfw3native.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Sphere.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="ICleanUp.h">
       <Filter>소스 파일\Interface</Filter>
     </ClInclude>
@@ -799,9 +796,6 @@
       <Filter>소스 파일\OBJ</Filter>
     </ClInclude>
     <ClInclude Include="Object.h">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClInclude>
-    <ClInclude Include="Sun.h">
       <Filter>소스 파일\OBJ</Filter>
     </ClInclude>
     <ClInclude Include="FileManager.h">
@@ -1227,19 +1221,10 @@
     <None Include="20161676_vs.shader" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Sphere.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="RenderableObject.cpp">
       <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
     <ClCompile Include="NonRenderableObject.cpp">
-      <Filter>소스 파일\OBJ</Filter>
-    </ClCompile>
-    <ClCompile Include="Sun.cpp">
       <Filter>소스 파일\OBJ</Filter>
     </ClCompile>
     <ClCompile Include="FileManager.cpp">

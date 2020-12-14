@@ -1,9 +1,9 @@
 #ifndef __RENDERABLEOBJECT_H__
 #define __RENDERABLEOBJECT_H__
 
-#include "Object.h"
-
-class RenderableObject : public Object
+#include "CompositeObject.h"
+#include <vector>
+class RenderableObject : public CompositeObject
 {
 private:
 	bool _IsMoveCheck = false;
@@ -15,7 +15,11 @@ public:
 	virtual void update() override {};
 	virtual void shutDown() override {};
 	virtual void setPosition(float x, float y, float z) {};
+	virtual void setRotation(float speed, float x, float y, float z) {};
+	virtual void setScale(float x, float y, float z) {};
 	virtual void setCameraPos(float x, float y, float z) {};
+
+	virtual void AddChild(CompositeObject* addObj)override {};
 
 public:
 

@@ -1,54 +1,44 @@
-#include <iostream>
+#pragma once
+
+#include "Object.h"
 #include <vector>
-#include <string>
+#include "FileManager.h"
 
-class Component
+using namespace std;
+
+class CompositeObject : public Object
 {
 public:
-	virtual ~Component() {};
-};
+	CompositeObject();
+	~CompositeObject();
+	virtual void init() override {};
+	virtual void render() override {};
+	virtual void update() override;
+	virtual void shutDown() override {};
 
-class Composite : public Component
-{
+	virtual void AddChild(CompositeObject* addObj);
+	CompositeObject* Parent;
+
+	glm::mat4 WorldTransform;
+	glm::mat4 Transform;
+	glm::mat4 WorldView;
+	glm::mat4 View;
+protected:
+	vector<CompositeObject*>* children;
+
+	float rotSpeed;
+	glm::mat4 Scale;
+	glm::vec3 scaleVec;
+	glm::vec3 rotVec;
+	glm::mat4 Rot;
+
+	glm::vec3 cameraPos;
+
+	glm::mat4 movePos;
+
+	glm::mat4 ProjectionMatrix;
+	glm::mat4 ViewMatrix;
+	glm::mat4 ModelMatrix;
 public:
-	Composite()
-	{
-		table_ = new std::vector<Component*>();
-	}
-	
-	~Composite()
-	{
-		for (
-			std::vector<Component*>::const_iterator it = table_->begin();
-			it != table_->end();
-			++it
-			)
-		{
-			delete (*it);
-		}
-
-		table_->clear();
-
-		delete table_;
-	}
-
-	void add(Component* obj)
-	{
-		table_->push_back(obj);
-	}
-private:
-	std::vector<Component*>* table_;
+	glm::vec3 position;
 };
-
-int main()
-{
-	Composite* container1 = new Composite();
-	Composite* container2 = new Composite();
-
-	container1->add(container2);
-
-	delete container1;
-	delete container2;
-
-	return 0;
-}
