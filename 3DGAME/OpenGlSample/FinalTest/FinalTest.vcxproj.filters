@@ -18,30 +18,30 @@
     <ClCompile Include="source\main.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="BackGround.cpp">
+    <ClCompile Include="source\Restart.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Earth.cpp">
+    <ClCompile Include="source\Meteor.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Meteor.cpp">
+    <ClCompile Include="source\Earth.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Restart.cpp">
+    <ClCompile Include="source\BackGround.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BackGround.h">
+    <ClInclude Include="include\Reset.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Earth.h">
+    <ClInclude Include="include\Meteor.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Meteor.h">
+    <ClInclude Include="include\Earth.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Reset.h">
+    <ClInclude Include="include\BackGround.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

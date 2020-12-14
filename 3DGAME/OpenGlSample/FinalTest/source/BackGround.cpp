@@ -1,19 +1,18 @@
-#include "Meteor.h"
+#include "../include/BackGround.h"
 #include "FileManager.h"
-#include "Time.h"
 
-void Meteor::setPosition(float x, float y, float z)
+void BackGround::setPosition(float x, float y, float z)
 {
 	position = glm::vec3(x, y, z);
 }
 
-void Meteor::setRotation(float speed, float x, float y, float z)
+void BackGround::setRotation(float speed, float x, float y, float z)
 {
 	rotSpeed = speed;
 	rotVec = glm::vec3(x, y, z);
 }
 
-void Meteor::setScale(float x, float y, float z)
+void BackGround::setScale(float x, float y, float z)
 {
 	scaleVec = glm::vec3(x, y, z);
 	if (scaleVec.x != 0.0f || scaleVec.y != 0.0f || scaleVec.z != 0.0f)
@@ -22,52 +21,25 @@ void Meteor::setScale(float x, float y, float z)
 	}
 }
 
-void Meteor::setCameraPos(float x, float y, float z)
+void BackGround::setCameraPos(float x, float y, float z)
 {
 	cameraPos = glm::vec3(-x, -y, -z);
 }
 
-void Meteor::init()
+void BackGround::init()
 {
 	FileManager* filemgr = FileManager::instance();
-	filemgr->loadObj(this, "sphere.obj", "sun.bmp", "20161676_vs.shader", "20161676_fs.shader");
+
+	filemgr->loadObj(this, "cube.obj", "universe.bmp", "20161676_vs.shader", "20161676_fs.shader");
+
+	this->setPosition(0, 0, -30);
 	this->setCameraPos(0, 0, 0);
 	this->setScale(0.0f, 0.0f, 0.0f);
-
-	int random = rand() % 2 + 1;
-	float randomPos = rand() / (float)RAND_MAX * (90.0f);
-	speed = rand() / (float)RAND_MAX * (0.01f) + (0.1f);
-	if (random == 1)
-	{
-		this->setPosition(randomPos, 30.0f, 0);
-	}
-	else if (random == 2)
-	{
-		this->setPosition(-(randomPos), 20.0f, 0);
-	}
 }
 
-void Meteor::render()
+void BackGround::render()
 {
 	glUseProgram(this->programID);
-
-	position.y -= speed;
-
-	if (position.y < -25.0f)
-	{
-		int random = rand() % 2 + 1;
-		float randomPos = rand() / (float)RAND_MAX * (40.0f);
-		speed = rand() / (float)RAND_MAX * (0.01f) + (0.1f);
-		if (random == 1)
-		{
-			this->setPosition(randomPos, 60.0f, 0);
-		}
-		else if (random == 2)
-		{
-			this->setPosition(-(randomPos), 20.0f, 0);
-		}
-
-	}
 
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D, this->Texture);
@@ -159,7 +131,6 @@ void Meteor::render()
 
 	MVP = ProjectionMatrix * moveCameraPos * WorldView * WorldTransform;
 
-
 	glUniformMatrix4fv(this->MatrixID, 1, GL_FALSE, &MVP[0][0]);
 	glDrawArrays(GL_TRIANGLES, 0, this->vertices.size());
 
@@ -179,13 +150,13 @@ void Meteor::render()
 	}
 }
 
-void Meteor::update()
+void BackGround::update()
 {
 
 }
 
 
-void Meteor::shutDown()
+void BackGround::shutDown()
 {
 	glDeleteBuffers(1, &vertexbuffer);
 	glDeleteBuffers(1, &uvbuffer);
@@ -195,7 +166,7 @@ void Meteor::shutDown()
 	glDeleteVertexArrays(1, &VertexArrayID);
 }
 
-void Meteor::AddChild(CompositeObject* addObj)
+void BackGround::AddChild(CompositeObject* addObj)
 {
 	children->push_back(addObj);
 	addObj->Parent = this;

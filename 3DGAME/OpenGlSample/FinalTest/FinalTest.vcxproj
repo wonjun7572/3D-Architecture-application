@@ -142,17 +142,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BackGround.cpp" />
-    <ClCompile Include="Earth.cpp" />
-    <ClCompile Include="Meteor.cpp" />
-    <ClCompile Include="Restart.cpp" />
+    <ClCompile Include="source\BackGround.cpp" />
+    <ClCompile Include="source\Earth.cpp" />
     <ClCompile Include="source\main.cpp" />
+    <ClCompile Include="source\Meteor.cpp" />
+    <ClCompile Include="source\Restart.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BackGround.h" />
-    <ClInclude Include="Earth.h" />
-    <ClInclude Include="Meteor.h" />
-    <ClInclude Include="Reset.h" />
+    <ClInclude Include="include\BackGround.h" />
+    <ClInclude Include="include\Earth.h" />
+    <ClInclude Include="include\Meteor.h" />
+    <ClInclude Include="include\Reset.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

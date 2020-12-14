@@ -11,10 +11,10 @@
 #include "NonRenderableObject.h"
 #include "Time.h"
 #include "CompositeObject.h"
-#include "../BackGround.h"
-#include "../Earth.h"
-#include "../Meteor.h"
-#include "../Reset.h"
+#include "../include/Earth.h"
+#include "../include/BackGround.h"
+#include "../include/Meteor.h"
+#include "../include/Reset.h"
 
 bool CheckCollision(CompositeObject* one, CompositeObject* two)
 {

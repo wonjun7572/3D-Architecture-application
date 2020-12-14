@@ -1,4 +1,4 @@
-﻿#include "Earth.h"
+﻿#include "../include/Earth.h"
 #include "FileManager.h"
 #include "Renderer.h"
 

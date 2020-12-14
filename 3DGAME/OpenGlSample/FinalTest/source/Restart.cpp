@@ -1,4 +1,4 @@
-#include "Reset.h"
+#include "../include/Reset.h"
 #include "FileManager.h"
 #include "Renderer.h"
 
